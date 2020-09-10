@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 
 const cartSchema = new mongoose.Schema({
   cart_token: String,
-  creation_date: Date,
-  last_update_date: Date,
+  creation_date: {type: Date, default: Date.now},
+  last_update_date: {type: Date, default: Date.now},
   ecommerce: String,
   items: [String],
 })

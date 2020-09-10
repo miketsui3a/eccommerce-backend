@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const { Store, Customer, Product } = require("./schema");
+const { Store, Customer, Cart, CartToCustomer } = require("./schema");
 
 const shopifyDao = async (data) => {
   mongoose.connect(process.env.DB, {
@@ -60,7 +60,8 @@ const shopifyDao = async (data) => {
         customer_id: customer_id,
       });
 
-      await CartToCustomer.findOneAndDelete({ cart_token: cart_token });
+      await CartToCustomer.findOneAndDelete({ cart_token: response.token });
+      console.log(response.token)
 
       if (cartToCustomerRecord === null) {
         cartToCustomerRecord = new CartToCustomer({
