@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const { Store, Customer, Product } = require("./schema");
+const { Store, Customer, CartToCustomer } = require("./schema");
 
 const shopifyQueryDBDao = async (data) => {
 
@@ -11,13 +11,14 @@ const shopifyQueryDBDao = async (data) => {
 
     const shop = data.query.shop;
 
-    const stores = await Store.findOne({store_name: shop}).populate({
-        path: 'customers',
-    })
+    const store = await Store.findOne({ store_name: shop })
+    const cartToCustomerRecords = await CartToCustomer.find({ cart_token: { $in: store.carts } })
+    const customers = await Customer.find({ customer_id: { $in: cartToCustomerRecords.map(x => x.customer_id) } })
 
-    console.debug(stores)
 
-    return stores
+    console.debug(customers)
+
+    return customers
 
 }
 

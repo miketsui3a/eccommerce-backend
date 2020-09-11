@@ -7,14 +7,14 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', (req, res) => {
-    console.debug('/cart🛒', req)
+    console.debug('/cart🛒')
     if (req.body.ecommerce === "shopify") {
         shopifyDao(req)
     }
 })
 
 router.get('/',async (req ,res)=>{
-    console.debug('/cart🛒', req.query)
+    console.debug('/cart🛒')
     if(req.query.ecommerce === 'shopify') {
         const data = await shopifyQueryDBDao(req)
         res.send(data)

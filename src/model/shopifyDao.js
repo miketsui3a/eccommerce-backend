@@ -19,14 +19,25 @@ const shopifyDao = async (data) => {
   });
 
   if (store === null) {
+    console.debug('cannot find store, create one in db')
     store = new Store({
       store_name: data.body.shop,
       ecommerce: "shopify",
     });
 
-    store.carts.push(response.token);
+    console.log(response.token)
+    // store.carts.push(response.token);
     store.save();
-  }
+  }/* else {
+    if (store.carts.includes(response.token)) {
+      console.debug('already in the cart list')
+    } else {
+      console.debug('store exist but cart not in the ')//??
+      store.carts.push(response.token);
+      store.save();
+    }
+  }*/
+
 
   if (customer_id) {
     let customer = await Customer.findOne({
@@ -35,6 +46,7 @@ const shopifyDao = async (data) => {
     });
 
     if (customer === null) {
+      console.debug('cannot find customer, create 1 DB')
       customer = new Customer({
         customer_id: customer_id,
         customer_phone: customer_phone,
@@ -56,22 +68,36 @@ const shopifyDao = async (data) => {
     });
 
     if (cartToCustomerRecord === null) {
+      console.debug('cannot find cartTCR given token and userID')
       cartToCustomerRecord = await CartToCustomer.findOne({
         customer_id: customer_id,
       });
 
       await CartToCustomer.findOneAndDelete({ cart_token: response.token });
-      console.log(response.token)
+
+
+      //maybe need to delete the cart db too...
 
       if (cartToCustomerRecord === null) {
+        console.debug('cannot find cartTCR given userID')
         cartToCustomerRecord = new CartToCustomer({
           cart_token: response.token,
           customer_id: customer_id,
         });
+        if(!store.carts.includes(response.token)){
+          store.carts.push(response.token)
+          store.save()
+        }
         cartToCustomerRecord.save();
       } else {
-        cartToCustomerRecord.cart_token = response.cart_token;
+        console.debug('find the userID in the cartTCR but the cartToken is wrong')
+        store.carts.splice(store.carts.indexOf(cartToCustomerRecord.cart_token),1)
+        store.carts.push(response.token)
+        //delete old cart in the store.carts array
+        store.save()
+        cartToCustomerRecord.cart_token = response.token;
         cartToCustomerRecord.save();
+
       }
     }
   }

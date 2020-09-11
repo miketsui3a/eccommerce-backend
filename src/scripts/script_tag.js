@@ -7,7 +7,7 @@ function newXHR() {
     function () {
       if (realXHR.readyState == 4 && realXHR.status == 200) {
           const response = JSON.parse(realXHR.response)
-        if (realXHR._url === "/cart/add.js" || realXHR._url === "/cart/change.js") {
+        if (realXHR._url === "/cart.js" || realXHR._url === "/cart/change.js") {
           fetch('https://d6e97c271b15.ngrok.io/api/v1/cart', {
             method: "POST",
             headers: {

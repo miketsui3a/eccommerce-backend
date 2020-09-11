@@ -6,7 +6,7 @@ const cartSchema = new mongoose.Schema({
   creation_date: {type: Date, default: Date.now},
   last_update_date: {type: Date, default: Date.now},
   ecommerce: String,
-  items: [String],
+  items: {type: Array},
 })
 
 const customerSchema = new mongoose.Schema({
@@ -21,7 +21,7 @@ const storeSchema = new mongoose.Schema({
   store_id: Number,
   store_name: String,
   ecommerce: String,
-  carts: [String]
+  carts: [String],
 })
 
 const cartToCustomerSchema = new mongoose.Schema({
