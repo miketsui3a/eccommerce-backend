@@ -20,7 +20,7 @@ const bree = new Bree({
   ]
 })
 
-bree.start()
+// bree.start()
 
 app.use(morgan('dev'));
 app.use(helmet());
