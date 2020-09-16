@@ -34,6 +34,7 @@ router.post('/cart-creation', async (req, res) => {
     })
   } else {
     cart.items = req.body.line_items
+    cart.reminded = false
   }
 
   cart.save()
@@ -54,6 +55,7 @@ router.post('/cart-update', async (req, res) => {
   } else {
     cart.items = req.body.line_items
     cart.last_update_date = Date.now()
+    cart.reminded = false
     cart.save()
   }
   res.sendStatus(200)

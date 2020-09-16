@@ -7,6 +7,8 @@ const cartSchema = new mongoose.Schema({
   last_update_date: {type: Date, default: Date.now},
   ecommerce: String,
   items: {type: Array},
+  last_remind: Date,
+  reminded:{type:Boolean, default:false}
 })
 
 const customerSchema = new mongoose.Schema({
@@ -22,6 +24,10 @@ const storeSchema = new mongoose.Schema({
   store_name: String,
   ecommerce: String,
   carts: [String],
+  checkout_auto_notice: {type: Boolean, default:true},
+  abandon_checkout_remind: {type: Boolean, default:true},
+  abandon_cart_remind: {type: Boolean, default:true},
+  token: String,
 })
 
 const cartToCustomerSchema = new mongoose.Schema({
