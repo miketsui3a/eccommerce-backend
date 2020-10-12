@@ -3,6 +3,10 @@ const fetch = require('node-fetch');
 
 const router = express.Router();
 
+/*
+This is for getting the abandon checkout data in the shopify
+*/
+
 router.post('/', async (req, res) => {
   console.debug('/proxy💻', req.body)
   let header = {

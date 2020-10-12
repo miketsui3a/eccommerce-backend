@@ -11,7 +11,7 @@ const api = require('./api');
 
 const app = express();
 
-const bree = new Bree({
+const bree = new Bree({ // schdule for checking the abandon cart and checkout. To enable the checking of abandon cart, uncomment the line bree.start()
   jobs: [
     {
       name: 'findAndNotice',
