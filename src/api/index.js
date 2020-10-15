@@ -6,6 +6,7 @@ const cart = require('./cart');
 const webhook = require('./webhook');
 const register = require('./register');
 const createDiscount = require('./createDiscount');
+const remindSchedule = require('./remindSchedule');
 
 const router = express.Router();
 
@@ -21,5 +22,7 @@ router.use('/cart', cart); // end point for cart activities
 router.use('/webhook', webhook); // shopify webhook when cart update etc.
 router.use('/register', register); // when the store install the shopify app, this end point will be triggered
 router.use('/create-discount', createDiscount); // self explain
+router.use('/remind-schedule',remindSchedule);
+
 
 module.exports = router;

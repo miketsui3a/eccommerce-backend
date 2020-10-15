@@ -32,5 +32,12 @@ router.post('/', async (req, res) => {
     res.send("OK")
 })
 
+router.get('/test',async (req,res)=>{
+    const a = await Store.find({}).populate("cart_instance").exec(function(e,d){
+        console.log(d[0])
+    })
+    // console.log(a)
+})
+
 
 module.exports = router

@@ -62,7 +62,8 @@ router.post('/cart-update', async (req, res) => {
     await Cart.findOneAndUpdate({ cart_token: req.body.token }, {
       items: req.body.line_items,
       last_update_date: Date.now(),
-      reminded: false
+      reminded: false,
+      remind_counter: 0
     })
   }
   res.sendStatus(200)

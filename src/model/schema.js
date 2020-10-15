@@ -3,12 +3,13 @@ const mongoose = require('mongoose');
 
 const cartSchema = new mongoose.Schema({
   cart_token: String,
-  creation_date: {type: Date, default: Date.now},
-  last_update_date: {type: Date, default: Date.now},
+  creation_date: { type: Date, default: Date.now },
+  last_update_date: { type: Date, default: Date.now },
   ecommerce: String,
-  items: {type: Array},
-  last_remind: Date,
-  reminded:{type:Boolean, default:false}
+  items: { type: Array },
+  last_remind: { type: Date, default: null },
+  reminded: { type: Boolean, default: false },
+  remind_counter: { type: Number, default: 0 },
 })
 
 const customerSchema = new mongoose.Schema({
@@ -24,10 +25,20 @@ const storeSchema = new mongoose.Schema({
   store_name: String,
   ecommerce: String,
   carts: [String],
-  checkout_auto_notice: {type: Boolean, default:true},
-  abandon_checkout_remind: {type: Boolean, default:true},
-  abandon_cart_remind: {type: Boolean, default:true},
+  checkout_auto_notice: { type: Boolean, default: true },
+  abandon_checkout_remind: { type: Boolean, default: true },
+  abandon_cart_remind: { type: Boolean, default: true },
   token: String,
+  abandon_cart_remind_schedule: { type: Array, default: [24] },
+  abandon_checkout_remind_schedule: { type: Array, default: [24] },
+},{
+  toObject: {virtuals: true}
+})
+
+storeSchema.virtual('cart_instance',{
+  ref: 'Cart',
+  localField:'carts',
+  foreignField: 'cart_token'
 })
 
 const cartToCustomerSchema = new mongoose.Schema({
@@ -37,7 +48,7 @@ const cartToCustomerSchema = new mongoose.Schema({
 
 const noticedCheckoutSchema = new mongoose.Schema({
   checkout_id: String,
-  noticed_date: {type: Date, default: Date.now},
+  noticed_date: { type: Date, default: Date.now },
 })
 
 
