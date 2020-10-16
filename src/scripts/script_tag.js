@@ -56,9 +56,13 @@ window.XMLHttpRequest = newXHR;
         `${window.location.origin}/cart/update.js`,
         `${window.location.origin}/cart/change.js`,
         `${window.location.origin}/cart/clear.js`,
+        `${window.location.origin}/cart.js`,
+        `${window.location.origin}/update.js`,
+        `${window.location.origin}/change.js`,
+        `${window.location.origin}/clear.js`,
       ].includes(res.url)) {
         console.log(res)
-        res.json().then(data => {
+        res.clone().json().then(data => {
           console.log(data)
           fetch('https://a1e60cec67c8.ngrok.io/api/v1/cart', {
             method: "POST",

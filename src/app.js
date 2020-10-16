@@ -16,11 +16,15 @@ const bree = new Bree({ // schdule for checking the abandon cart and checkout. T
     {
       name: 'findAndNotice',
       interval: '30s'
+    },
+    {
+      name: 'findAndNoticeCheckout',
+      interval: '30s'
     }
   ]
 })
 
-// bree.start()
+// bree.start() //uncomment to do the abandon checking
 
 app.use(morgan('dev'));
 app.use(helmet());

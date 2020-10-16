@@ -49,6 +49,7 @@ const cartToCustomerSchema = new mongoose.Schema({
 const noticedCheckoutSchema = new mongoose.Schema({
   checkout_id: String,
   noticed_date: { type: Date, default: Date.now },
+  remind_counter: { type: Number, default: 1 },
 })
 
 
